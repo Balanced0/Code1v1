@@ -1,0 +1,10 @@
+export type Problem = { id:string; title:string; difficulty:"Easy"|"Medium"|"Hard"; tags:string[]; acceptance:number; description:string; constraints:string; sampleInput:string; sampleOutput:string };
+export const problems: Problem[] = [
+  { id:"watermelon",title:"Watermelon",difficulty:"Easy",tags:["math","implementation"],acceptance:82,description:"Pete bought a watermelon weighing w kilos. Split it into two positive even-weight parts.",constraints:"1 ≤ w ≤ 100",sampleInput:"8",sampleOutput:"YES" },
+  { id:"next-round",title:"Next Round",difficulty:"Easy",tags:["sorting","implementation"],acceptance:86,description:"Count contestants who advance based on the kth score, including ties with positive scores.",constraints:"2 ≤ n ≤ 50",sampleInput:"8 5\n10 9 8 7 7 7 5 5",sampleOutput:"6" },
+  { id:"beautiful-matrix",title:"Beautiful Matrix",difficulty:"Easy",tags:["implementation"],acceptance:90,description:"Move the only one in a 5×5 matrix to its center using adjacent swaps.",constraints:"Exactly one matrix entry is 1",sampleInput:"0 0 0 0 0\n0 0 0 0 0\n0 0 0 0 0\n0 0 0 1 0\n0 0 0 0 0",sampleOutput:"2" },
+  { id:"two-buttons",title:"Two Buttons",difficulty:"Medium",tags:["bfs","graphs"],acceptance:76,description:"Transform n into m using either a doubling or a decrement operation in the fewest moves.",constraints:"1 ≤ n, m ≤ 10⁴",sampleInput:"4 6",sampleOutput:"2" },
+  { id:"t-primes",title:"T-primes",difficulty:"Medium",tags:["number theory","binary search"],acceptance:69,description:"For each number, decide if it is the square of a prime number.",constraints:"Up to 10⁵ values; each ≤ 10¹²",sampleInput:"3\n4 5 9",sampleOutput:"YES\nNO\nYES" },
+  { id:"little-girl-game",title:"Little Girl and Game",difficulty:"Medium",tags:["games","strings"],acceptance:74,description:"Determine the winner of a game where players remove letters from a string.",constraints:"String length ≤ 100000",sampleInput:"aabc",sampleOutput:"First" },
+];
+export const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api";

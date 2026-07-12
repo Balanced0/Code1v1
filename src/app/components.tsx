@@ -1,0 +1,7 @@
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { ReactNode } from "react";
+export function Shell({ children }: { children: ReactNode }) { const path = usePathname(); const nav = [["Problems","/problems"],["Leaderboard","/leaderboard"],["Arena","/arena"],["About","/about"]]; return <><nav className="app-nav"><Link href="/" className="brand"><span className="brand-mark">&gt;_</span> CODE1V1</Link><div className="app-links">{nav.map(([name,href])=><Link className={path===href?"active":""} href={href} key={href}>{name}</Link>)}</div><div className="nav-actions"><Link href="/login">Sign in</Link><Link href="/arena" className="button button-small">Find match</Link></div></nav>{children}<footer className="app-footer"><Link href="/" className="brand"><span className="brand-mark">&gt;_</span> CODE1V1</Link><span>Built for the ones who keep solving.</span><div><Link href="/contact">Contact</Link><Link href="/about">About</Link><a href="https://github.com/Balanced0" target="_blank">GitHub ↗</a></div></footer></> }
+export function PageHead({ kicker, title, text }: { kicker:string; title:string; text:string }) { return <header className="page-head"><p className="eyebrow">{kicker}</p><h1>{title}</h1><p>{text}</p></header> }
+export function Difficulty({ value }: { value:string }) { return <span className={`difficulty ${value.toLowerCase()}`}>{value}</span> }
