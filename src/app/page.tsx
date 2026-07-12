@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Shell } from "./components";
 
 const steps = [
   ["01", "Enter the queue", "Choose your preferred language and join the ranked pool in one click."],
@@ -15,12 +16,7 @@ const leaders = [
 
 export default function Home() {
   return (
-    <main>
-      <nav className="site-nav">
-        <Link href="/" className="brand"><span className="brand-mark">&gt;_</span> CODE1V1</Link>
-        <div className="nav-links"><Link href="/problems">Problems</Link><Link href="/leaderboard">Leaderboard</Link><Link href="/about">About</Link></div>
-        <div className="nav-actions"><Link href="/login">Sign in</Link><Link href="/register" className="button button-small">Start competing</Link></div>
-      </nav>
+    <Shell><main>
 
       <section className="hero section-shell">
         <div className="hero-copy">
@@ -53,7 +49,6 @@ export default function Home() {
       <section className="section-shell faq section"><p className="eyebrow">QUICK ANSWERS</p><div className="faq-grid"><h2>Questions before<br /><em>the first match?</em></h2><div>{[["How does matching work?", "We pair you with players close to your current rating and choose from a balanced problem pool."], ["Which languages can I use?", "C++, JavaScript, Python, Java, and TypeScript are supported in the arena."], ["Is Code1v1 free?", "Yes. Create an account, enter the queue, and compete without a subscription."]].map(([question, answer]) => <details key={question}><summary>{question}<span>+</span></summary><p>{answer}</p></details>)}</div></div></section>
 
       <section className="final-cta"><div className="section-shell"><p className="eyebrow">YOUR NEXT RATING POINT IS WAITING</p><h2>Ready to prove it?</h2><Link href="/register" className="button">Create your free account <span>→</span></Link></div></section>
-      <footer className="site-footer section-shell"><Link href="/" className="brand"><span className="brand-mark">&gt;_</span> CODE1V1</Link><p>Built for the ones who keep solving.</p><div><Link href="/about">About</Link><Link href="/contact">Contact</Link><a href="https://github.com/Balanced0" target="_blank" rel="noreferrer">GitHub ↗</a></div><small>© 2026 Code1v1 Arena</small></footer>
-    </main>
+    </main></Shell>
   );
 }

@@ -3,6 +3,134 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ReactNode, useState } from "react";
 import { authClient } from "./auth-client";
-export function Shell({ children }: { children: ReactNode }) {const path=usePathname();const router=useRouter();const [open,setOpen]=useState(false);const [mobile,setMobile]=useState(false);const {data:session,isPending}=authClient.useSession();const user=session?.user;const initials=(user?.name||user?.email||"U").split(/\s|@/).filter(Boolean).map(word=>word[0]).join("").slice(0,2).toUpperCase();const nav=[["Problems","/problems"],["Leaderboard","/leaderboard"],["Arena","/arena"],["About","/about"]];return <><nav className="app-nav"><Link href="/" className="brand"><span className="brand-mark">&gt;_</span> CODE1V1</Link><button className="menu-toggle" onClick={()=>setMobile(!mobile)} aria-label="Toggle navigation">☰</button><div className={`app-links ${mobile?"mobile-open":""}`}>{nav.map(([name,href])=><Link onClick={()=>setMobile(false)} className={path===href?"active":""} href={href} key={href}>{name}</Link>)}</div><div className="nav-actions">{!isPending&&!user&&<><Link href="/login">Sign in</Link><Link href="/arena" className="button button-small">Find match</Link></>}{user&&<div className="user-menu"><button className="user-avatar" onClick={()=>setOpen(!open)} aria-expanded={open} aria-label="Open account menu">{initials}</button>{open&&<div className="user-dropdown"><p><b>{user.name||"Competitor"}</b><small>{user.email}</small></p><Link href={`/profile/${encodeURIComponent(user.name||"me")}`} onClick={()=>setOpen(false)}>My profile</Link><Link href="/problems/manage" onClick={()=>setOpen(false)}>Manage problems</Link><button onClick={async()=>{await authClient.signOut();setOpen(false);router.push("/")}}>Sign out</button></div>}</div>}</div></nav>{children}<footer className="app-footer"><Link href="/" className="brand"><span className="brand-mark">&gt;_</span> CODE1V1</Link><span>Built for the ones who keep solving.</span><div><Link href="/contact">Contact</Link><Link href="/about">About</Link><a href="https://github.com/Balanced0" target="_blank">GitHub ↗</a></div></footer></>}
-export function PageHead({kicker,title,text}:{kicker:string;title:string;text:string}){return <header className="page-head"><p className="eyebrow">{kicker}</p><h1>{title}</h1><p>{text}</p></header>}
-export function Difficulty({value}:{value:string}){return <span className={`difficulty ${value.toLowerCase()}`}>{value}</span>}
+export function Shell({ children }: { children: ReactNode }) {
+  const path = usePathname();
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [mobile, setMobile] = useState(false);
+  const { data: session, isPending } = authClient.useSession();
+  const user = session?.user;
+  const initials = (user?.name || user?.email || "U")
+    .split(/\s|@/)
+    .filter(Boolean)
+    .map((word) => word[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+  const nav = [
+    ["Problems", "/problems"],
+    ["Leaderboard", "/leaderboard"],
+    ["Arena", "/arena"],
+    ["About", "/about"],
+  ];
+  return (
+    <>
+      <nav className="app-nav">
+        <Link href="/" className="brand">
+          <span className="brand-mark">&gt;_</span> CODE1V1
+        </Link>
+        <button
+          className="menu-toggle"
+          onClick={() => setMobile(!mobile)}
+          aria-label="Toggle navigation"
+        >
+          ☰
+        </button>
+        <div className={`app-links ${mobile ? "mobile-open" : ""}`}>
+          {nav.map(([name, href]) => (
+            <Link
+              onClick={() => setMobile(false)}
+              className={path === href ? "active" : ""}
+              href={href}
+              key={href}
+            >
+              {name}
+            </Link>
+          ))}
+        </div>
+        <div className="nav-actions">
+          {!isPending && !user && (
+            <>
+              <Link href="/login">Sign in</Link>
+              <Link href="/arena" className="button button-small">
+                Find match
+              </Link>
+            </>
+          )}
+          {user && (
+            <div className="user-menu">
+              <button
+                className="user-avatar"
+                onClick={() => setOpen(!open)}
+                aria-expanded={open}
+                aria-label="Open account menu"
+              >
+                {initials}
+              </button>
+              {open && (
+                <div className="user-dropdown">
+                  <p>
+                    <b>{user.name || "Competitor"}</b>
+                    <small>{user.email}</small>
+                  </p>
+                  <Link
+                    href={`/profile/${encodeURIComponent(user.name || "me")}`}
+                    onClick={() => setOpen(false)}
+                  >
+                    My profile
+                  </Link>
+                  <Link href="/problems/manage" onClick={() => setOpen(false)}>
+                    Manage problems
+                  </Link>
+                  <button
+                    onClick={async () => {
+                      await authClient.signOut();
+                      setOpen(false);
+                      router.push("/");
+                    }}
+                  >
+                    Sign out
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </nav>
+      {children}
+      <footer className="app-footer">
+        <Link href="/" className="brand">
+          <span className="brand-mark">&gt;_</span> CODE1V1
+        </Link>
+        <span>Built for the ones who keep solving.</span>
+        <div>
+          <Link href="/contact">Contact</Link>
+          <Link href="/about">About</Link>
+          <a href="https://github.com/Balanced0" target="_blank">
+            GitHub ↗
+          </a>
+        </div>
+      </footer>
+    </>
+  );
+}
+export function PageHead({
+  kicker,
+  title,
+  text,
+}: {
+  kicker: string;
+  title: string;
+  text: string;
+}) {
+  return (
+    <header className="page-head">
+      <p className="eyebrow">{kicker}</p>
+      <h1>{title}</h1>
+      <p>{text}</p>
+    </header>
+  );
+}
+export function Difficulty({ value }: { value: string }) {
+  return <span className={`difficulty ${value.toLowerCase()}`}>{value}</span>;
+}
